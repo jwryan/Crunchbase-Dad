@@ -4,7 +4,22 @@ apikey = '9bwsmefb9ya289dguvw7xf2y'
 
 #call Crunchbase API and return request as a dict
 def cbaseRequest(baseurl, payload):
-	return requests.get(baseurl, params = payload).json(strict=False)
+        request = requests.get(baseurl, params = payload)
+        retries = 0
+        waittime = 10
+        while request.status_code <> requests.codes.ok and retries < 10:
+                print ('Bad response from API service, error code '
+                        + str(request.status_code) +
+                       '. Will retry in ' + str(waittime) +'s')
+                sleep(waittime)
+                waittime += 10
+                print 'Retrying'
+                request = requests.get(baseurl, params = payload)
+                retries += 1
+        if request.status_code == requests.codes.ok:
+                return request.json(strict=False)
+        else:
+                request.raise_for_status()
 
 def cbaseSearch(query, page = 1):
 	payload = {
@@ -27,7 +42,6 @@ def getAllInfo(query, startpage = 1, maxpages = -1, namespaces = ['company']):
     firstpage = cbaseSearch(query, startpage)
     resultset = ResultSet(namespaces)
     pages = firstpage['total']/10 + 1
-    globalcount = 0
     if maxpages == -1 or pages < maxpages:
     	pages = pages + 1
     else:
@@ -39,11 +53,6 @@ def getAllInfo(query, startpage = 1, maxpages = -1, namespaces = ['company']):
         if callcount > 9:
             callcount = 0
             sleep(1)
-        if globalcallcount = 100:
-                globalcallcount = 0
-                print 'Taking a nap'
-                sleep(60)
-                print 'Back to work!'
         resultset.addAllEntities(cbaseSearch(query, currentpage))
         callcount += 1
     sleep(1)
@@ -56,11 +65,6 @@ def getAllInfo(query, startpage = 1, maxpages = -1, namespaces = ['company']):
                 sleep(1)
             resultset.updateEntity(namespace, entity)
             callcount += 1
-        if globalcallcount = 100:
-                globalcallcount = 0
-                print 'Taking a nap'
-                sleep(60)
-                print 'Back to work!'
     return resultset
 
 class ResultSet:
