@@ -23,20 +23,27 @@ def cbaseEntityInformation(namespace, permalink):
                    + namespace + '/' + permalink + '.js')
 	return cbaseRequest(baseurl, payload)
 	
-def getAllInfo(query, namespaces = ['company'], maxpages = -1):
-    firstpage = cbaseSearch(query)
+def getAllInfo(query, startpage = 1, maxpages = -1, namespaces = ['company']):
+    firstpage = cbaseSearch(query, startpage)
     resultset = ResultSet(namespaces)
     pages = firstpage['total']/10 + 1
-    if pages > maxpages:
-    	pages = maxpages + 1
-    else:
+    globalcount = 0
+    if maxpages == -1 or pages < maxpages:
     	pages = pages + 1
+    else:
+    	pages = maxpages + 1
     resultset.addAllEntities(firstpage)
-    callcount = 1
-    for currentpage in range(2, pages):
+    sleep(1)
+    callcount = 0
+    for currentpage in range(startpage+1, pages):
         if callcount > 9:
             callcount = 0
             sleep(1)
+        if globalcallcount = 100:
+                globalcallcount = 0
+                print 'Taking a nap'
+                sleep(60)
+                print 'Back to work!'
         resultset.addAllEntities(cbaseSearch(query, currentpage))
         callcount += 1
     sleep(1)
@@ -49,6 +56,11 @@ def getAllInfo(query, namespaces = ['company'], maxpages = -1):
                 sleep(1)
             resultset.updateEntity(namespace, entity)
             callcount += 1
+        if globalcallcount = 100:
+                globalcallcount = 0
+                print 'Taking a nap'
+                sleep(60)
+                print 'Back to work!'
     return resultset
 
 class ResultSet:

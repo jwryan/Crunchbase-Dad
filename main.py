@@ -7,7 +7,8 @@ print 'Starting'
 
 ##Put search query in to getAllInfo argument
 ##Comment out if loading pre-saved results
-result = getAllInfo('LED Lighting').results
+##Set maxpages to -1 to get all pages
+result = getAllInfo('LED Lighting', startpage = 1, maxpages = -1).results
 print 'Results succesfully retrieved'
 
 ##Save search results in a python specific format (pickle) for converting to CSV later.
