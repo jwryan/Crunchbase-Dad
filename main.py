@@ -21,10 +21,10 @@ with open('results.json', 'wb') as outfile:
 #    result = pickle.loads(infile)
 #result = pickle.load(open('results.pk','rb'))
 
-#Write
-filename = ''
+#Write to csv
+filename = r'<PUT FILEPATH HERE (leaving current quotes and not adding new one)>'
 properties = ['name', 'category_code', 'description', 'crunchbase_url', 'homepage_url', 'overview']
-with open(r'D:\Test Ing\test.csv', 'wb') as outfile:
+with open(filename, 'wb') as outfile:
     headers = properties
     writer = csv.writer(outfile)
     writer.writerow(headers)
