@@ -6,20 +6,24 @@ import pickle
 ##Put search query in to getAllInfo argument
 ##Comment out if loading pre-saved results
 result = getAllInfo('LED Lighting').results
+print 'Results succesfully retrieved'
 
 ##Save search results in a python specific format (pickle) for converting to CSV later.
-with open('results.pk', 'wb') as outfile:
+with open(r'results.pk', 'wb') as outfile:
     pickle.dump(result, outfile)
+    print 'Pickle file saved'
 
 ##Save results in JSON as well (had some issues reading the JSON back in correctly thus
 ##only supporting loading in pickle files for now
-with open('results.json', 'wb') as outfile:
+with open(r'results.json', 'wb') as outfile:
     json.dump(result, outfile)
+    print 'JSON file saved'
     
 ##Open a previously saved pickle file to parse
-#with open('results.pk', 'rb') as infile:
+#with open(r'results.pk', 'rb') as infile:
 #    result = pickle.loads(infile)
-#result = pickle.load(open('results.pk','rb'))
+#result = pickle.load(open(r'results.pk','rb'))
+#print 'Pickle file loaded'
 
 #Write to csv
 filename = r'<PUT FILEPATH HERE (leaving current quotes and not adding new one)>'
@@ -37,3 +41,4 @@ with open(filename, 'wb') as outfile:
             else:
                 row.append(''.encode('UTF-8'))
         writer.writerow(row)
+Print 'CSV written'
