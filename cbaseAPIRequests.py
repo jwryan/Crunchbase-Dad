@@ -28,15 +28,13 @@ def getAllInfo(query, namespaces = ['company']):
     resultset = ResultSet(namespaces)
     pages = firstpage['total']/10 + 1
     resultset.addAllEntities(firstpage)
-    sleep(1)
-    callcount = 0
-    for currentpage in range(2, 10):#pages+1):
+    callcount = 1
+    for currentpage in range(2, pages+1):
         if callcount > 9:
             callcount = 0
             sleep(1)
         resultset.addAllEntities(cbaseSearch(query, currentpage))
         callcount += 1
-    callcount = 0
     for namespace in iter(resultset.results):
         for entity in iter(resultset.results[namespace]):
             if callcount > 9:
