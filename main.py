@@ -26,7 +26,7 @@ with open(r'results.json', 'wb') as outfile:
 #print 'Pickle file loaded'
 
 #Write to csv
-filename = r'<PUT FILEPATH HERE (leaving current quotes and not adding new one)>'
+filename = r'results.csv'
 properties = ['name', 'category_code', 'description', 'crunchbase_url', 'homepage_url', 'overview']
 with open(filename, 'wb') as outfile:
     headers = properties
