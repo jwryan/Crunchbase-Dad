@@ -20,8 +20,6 @@ with open(r'results.json', 'wb') as outfile:
     print 'JSON file saved'
     
 ##Open a previously saved pickle file to parse
-#with open(r'results.pk', 'rb') as infile:
-#    result = pickle.loads(infile)
 #result = pickle.load(open(r'results.pk','rb'))
 #print 'Pickle file loaded'
 
@@ -41,4 +39,4 @@ with open(filename, 'wb') as outfile:
             else:
                 row.append(''.encode('UTF-8'))
         writer.writerow(row)
-Print 'CSV written'
+print 'CSV written'
