@@ -23,13 +23,17 @@ def cbaseEntityInformation(namespace, permalink):
                    + namespace + '/' + permalink + '.js')
 	return cbaseRequest(baseurl, payload)
 	
-def getAllInfo(query, namespaces = ['company']):
+def getAllInfo(query, namespaces = ['company'], maxpages = -1):
     firstpage = cbaseSearch(query)
     resultset = ResultSet(namespaces)
     pages = firstpage['total']/10 + 1
+    if pages > maxpages:
+    	pages = maxpages + 1
+    else:
+    	pages = pages + 1
     resultset.addAllEntities(firstpage)
     callcount = 1
-    for currentpage in range(2, 20):
+    for currentpage in range(2, pages):
         if callcount > 9:
             callcount = 0
             sleep(1)
