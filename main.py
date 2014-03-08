@@ -3,6 +3,8 @@ import json
 import csv
 import pickle
 
+print 'Starting'
+
 ##Put search query in to getAllInfo argument
 ##Comment out if loading pre-saved results
 result = getAllInfo('LED Lighting').results
@@ -40,3 +42,5 @@ with open(filename, 'wb') as outfile:
                 row.append(''.encode('UTF-8'))
         writer.writerow(row)
 print 'CSV written'
+
+print 'Done!'
