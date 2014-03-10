@@ -37,8 +37,10 @@ with open(filename, 'wb') as outfile:
     for company in companies.iterkeys():
         row = []
         for header in headers:
-            if companies[company][header]:
-                row.append(str(companies[company][header]).encode('UTF-8'))
+            if type(companies[company][header]) is int:
+                row.append(str(str(companies[company][header]).encode('UTF-8')))
+            elif companies[company][header]:
+                row.append(str(companies[company][header].encode('UTF-8')))
             else:
                 row.append(''.encode('UTF-8'))
         writer.writerow(row)
